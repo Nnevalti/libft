@@ -38,7 +38,8 @@ SRCS	=	ft_memset.c \
 			ft_putnbr_fd.c \
 			ft_strmapi.c \
 			ft_itoa.c \
-			ft_lstnew_bonus.c \
+
+BONUS	=	ft_lstnew_bonus.c \
 			ft_lstadd_front_bonus.c \
 			ft_lstsize_bonus.c \
 			ft_lstlast_bonus.c \
@@ -46,16 +47,24 @@ SRCS	=	ft_memset.c \
 			ft_lstdelone_bonus.c \
 			ft_lstclear_bonus.c \
 			ft_lstiter_bonus.c \
-			ft_lstmap_bonus.c
+			ft_lstmap_bonus.c \
 
 OBJS	= *.o
+
+CC		= gcc
+
+FLAGS	= -Wall -Wextra -Werror
 
 INCLS 	= includes
 
 all:		$(NAME)
 
 $(NAME):
-			gcc -Wall -Wextra -Werror -c $(SRCS)
+			$(CC) $(FLAGS) -c $(SRCS)
+			ar rc $(NAME) $(OBJS)
+
+bonus:
+			$(CC) $(FLAGS) -c $(BONUS)
 			ar rc $(NAME) $(OBJS)
 
 clean:		
