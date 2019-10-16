@@ -3,100 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdescham <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alilin <alilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 15:11:18 by vdescham          #+#    #+#             */
-/*   Updated: 2019/10/10 15:34:19 by vdescham         ###   ########.fr       */
+/*   Created: 2019/10/11 10:59:33 by alilin            #+#    #+#             */
+/*   Updated: 2019/10/16 14:17:34 by alilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-static int	ischarset(char charset, char c)
+static int		ft_countset(char const *s, char c)
 {
-	if (c == charset)
-		return (1);
-	return (0);
-}
-
-static int	ft_count_words(char const *str, char charset)
-{
-	int i;
-	int count;
+	int		i;
+	int		count;
+	int		flag;
 
 	i = 0;
+	flag = 0;
 	count = 0;
-	while (str[i])
+	while (s[i])
 	{
-		while (ischarset(charset, str[i]) && str[i])
+		while (s[i] != c && s[i])
+		{
+			flag = 1;
 			i++;
-		if (!ischarset(charset, str[i]) && str[i])
+		}
+		if (flag == 1)
 			count++;
-		while (!ischarset(charset, str[i]) && str[i])
+		else
 			i++;
+		flag = 0;
 	}
 	return (count);
 }
 
-static void	words_length(char **result, char const *str, char charset)
+static char		*ft_mallocstr(char const *s, char c)
 {
-	int i;
-	int j;
-	int word_len;
+	int		i;
+	char	*str;
+
+	i = 0;
+	while (s[i] && s[i] != c)
+		i++;
+	if (!(str = malloc(sizeof(char) * (i + 1))))
+		return (0);
+	i = 0;
+	while (s[i] && s[i] != c)
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+char			**ft_split(char const *s, char c)
+{
+	int		i;
+	int		j;
+	char	**tab;
 
 	i = 0;
 	j = 0;
-	while (str[i])
+	if (!(tab = malloc(sizeof(char *) * (ft_countset(s, c) + 1))))
+		return (0);
+	while (s[i])
 	{
-		word_len = 0;
-		while (ischarset(charset, str[i]))
+		while (s[i] && s[i] == c)
 			i++;
-		while (!ischarset(charset, str[i]) && str[i])
+		if (s[i] != c && s[i])
 		{
-			word_len++;
-			i++;
+			tab[j] = ft_mallocstr(&s[i], c);
+			while (s[i] != c && s[i])
+				i++;
+			j++;
 		}
-		result[j] = (char*)malloc(sizeof(char) * word_len + 1);
-		if (!result[j] || !str[i])
-			return ;
-		j++;
 	}
-}
-
-static void	fillresult(char **result, char const *str,
-				char charset, int nb_words)
-{
-	int i;
-	int j;
-	int k;
-
-	i = 0;
-	j = 0;
-	while (str[i] && j < nb_words)
-	{
-		k = 0;
-		while (ischarset(charset, str[i]))
-			i++;
-		while (!ischarset(charset, str[i]) && str[i])
-		{
-			result[j][k] = str[i];
-			k++;
-			i++;
-		}
-		result[j][k] = '\0';
-		j++;
-	}
-	result[j] = 0;
-}
-
-char		**ft_split(char const *str, char c)
-{
-	int		count_words;
-	char	**result;
-
-	count_words = ft_count_words(str, c);
-	result = (char**)malloc(sizeof(char*) * count_words + 1);
-	words_length(result, str, c);
-	fillresult(result, str, c, count_words);
-	return (result);
+	tab[j] = 0;
+	return (tab);
 }

@@ -6,7 +6,7 @@
 /*   By: vdescham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:01:49 by vdescham          #+#    #+#             */
-/*   Updated: 2019/10/11 11:03:47 by vdescham         ###   ########.fr       */
+/*   Updated: 2019/10/16 17:57:54 by vdescham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char			*ft_strtrim(char const *s1, char const *set)
 	int		end;
 
 	start = start_index(s1, set);
+	if (start >= (int)ft_strlen(s1))
+		return ("\0");
 	end = end_index(s1, set);
 	if (end < start)
 		return ("\0");
