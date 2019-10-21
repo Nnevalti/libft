@@ -6,7 +6,7 @@
 /*   By: vdescham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 12:29:00 by vdescham          #+#    #+#             */
-/*   Updated: 2019/10/14 11:06:02 by vdescham         ###   ########.fr       */
+/*   Updated: 2019/10/21 13:52:28 by vdescham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	char *str;
 
 	str = (char *)s;
-	while (n-- || c == '\0')
+	while ((n-- || c == '\0') && *str)
 	{
 		if (*str == c)
 			return (str);

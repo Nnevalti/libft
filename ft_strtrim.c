@@ -6,7 +6,7 @@
 /*   By: vdescham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:01:49 by vdescham          #+#    #+#             */
-/*   Updated: 2019/10/16 17:57:54 by vdescham         ###   ########.fr       */
+/*   Updated: 2019/10/21 14:26:07 by vdescham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char			*ft_strtrim(char const *s1, char const *set)
 	end = end_index(s1, set);
 	if (end < start)
 		return ("\0");
-	if (!(mem = malloc((end - start + 1) * sizeof(char))))
+	if (!(mem = (char *)malloc((end - start + 1) * sizeof(char))))
 		return (0);
 	mem = ft_strncpy(mem, s1 + start, end - start);
 	mem[end - start] = '\0';

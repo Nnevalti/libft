@@ -39,15 +39,15 @@ SRCS	=	ft_memset.c \
 			ft_strmapi.c \
 			ft_itoa.c \
 
-BONUS	=	ft_lstnew_bonus.c \
-			ft_lstadd_front_bonus.c \
-			ft_lstsize_bonus.c \
-			ft_lstlast_bonus.c \
-			ft_lstadd_back_bonus.c \
-			ft_lstdelone_bonus.c \
-			ft_lstclear_bonus.c \
-			ft_lstiter_bonus.c \
-			ft_lstmap_bonus.c \
+BONUS	=	ft_lstnew.c \
+			ft_lstadd_front.c \
+			ft_lstsize.c \
+			ft_lstlast.c \
+			ft_lstadd_back.c \
+			ft_lstdelone.c \
+			ft_lstclear.c \
+			ft_lstiter.c \
+			ft_lstmap.c \
 
 OBJS	= *.o
 
@@ -64,7 +64,7 @@ $(NAME):
 			ar rc $(NAME) $(OBJS)
 
 bonus:
-			$(CC) $(FLAGS) -c $(BONUS)
+			$(CC) $(FLAGS) -c $(BONUS) $(SRCS)
 			ar rc $(NAME) $(OBJS)
 
 clean:		
