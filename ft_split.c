@@ -6,80 +6,70 @@
 /*   By: vdescham <vdescham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 15:27:16 by vdescham          #+#    #+#             */
-/*   Updated: 2019/10/21 15:27:18 by vdescham         ###   ########.fr       */
+/*   Updated: 2019/10/22 16:10:55 by vdescham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
-
-static int		ft_countset(char const *s, char c)
-{
-	int		i;
-	int		count;
-	int		flag;
-
-	i = 0;
-	flag = 0;
-	count = 0;
-	while (s[i])
-	{
-		while (s[i] != c && s[i])
-		{
-			flag = 1;
-			i++;
-		}
-		if (flag == 1)
-			count++;
-		else
-			i++;
-		flag = 0;
-	}
-	return (count);
-}
 
 static char		*ft_mallocstr(char const *s, char c)
 {
 	int		i;
 	char	*str;
+	int		nb_chars;
 
+	nb_chars = 0;
+	while (s[nb_chars] && s[nb_chars] != c)
+		nb_chars++;
+	if (!(str = (char *)malloc((nb_chars + 1) * sizeof(char))))
+		return (NULL);
 	i = 0;
-	while (s[i] && s[i] != c)
-		i++;
-	if (!(str = malloc(sizeof(char) * (i + 1))))
-		return (0);
-	i = 0;
-	while (s[i] && s[i] != c)
+	while (i < nb_chars)
 	{
 		str[i] = s[i];
 		i++;
 	}
-	str[i] = '\0';
+	str[nb_chars] = '\0';
 	return (str);
+}
+
+static int		ft_countset(char const *s, char c)
+{
+	int		count;
+
+	count = 0;
+	while (*s)
+	{
+		while (*s == c)
+			s++;
+		if (*s != '\0')
+			count++;
+		while (*s && *s != c)
+			s++;
+	}
+	return (count);
 }
 
 char			**ft_split(char const *s, char c)
 {
 	int		i;
-	int		j;
+	int		nb_strings;
 	char	**tab;
 
+	nb_strings = ft_countset(s, c);
+	if (!(tab = (char **)malloc((nb_strings + 1) * sizeof(char *))))
+		return (NULL);
 	i = 0;
-	j = 0;
-	if (!(tab = malloc(sizeof(char *) * (ft_countset(s, c) + 1))))
-		return (0);
-	while (s[i])
+	while (i < nb_strings)
 	{
-		while (s[i] && s[i] == c)
-			i++;
-		if (s[i] != c && s[i])
-		{
-			tab[j] = ft_mallocstr(&s[i], c);
-			while (s[i] != c && s[i])
-				i++;
-			j++;
-		}
+		while (*s == c)
+			s++;
+		if (*s != '\0')
+			tab[i] = ft_mallocstr(s, c);
+		while (*s && *s != c)
+			s++;
+		i++;
 	}
-	tab[j] = 0;
+	tab[nb_strings] = NULL;
 	return (tab);
 }

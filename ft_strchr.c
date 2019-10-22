@@ -6,17 +6,20 @@
 /*   By: vdescham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 12:30:23 by vdescham          #+#    #+#             */
-/*   Updated: 2019/10/09 13:22:18 by vdescham         ###   ########.fr       */
+/*   Updated: 2019/10/22 11:59:02 by vdescham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 char	*ft_strchr(const char *s, int c)
 {
-	while (*s || c == '\0')
+	char	*str;
+
+	str = (char *)s;
+	while (*str || c == '\0')
 	{
-		if (*s == c)
-			return ((char *)s);
-		s++;
+		if (*str == c)
+			return (str);
+		str++;
 	}
 	return (0);
 }

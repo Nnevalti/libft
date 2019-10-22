@@ -6,7 +6,7 @@
 /*   By: vdescham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:35:51 by vdescham          #+#    #+#             */
-/*   Updated: 2019/10/10 17:47:12 by vdescham         ###   ########.fr       */
+/*   Updated: 2019/10/22 16:24:03 by vdescham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,58 @@
 
 static int	countn(int n)
 {
-	int i;
+	long	mult;
+	int		nb_chars;
+
+	mult = 10;
+	nb_chars = 0;
+	while (n % mult != n)
+	{
+		mult *= 10;
+		nb_chars++;
+	}
+	nb_chars++;
+	return (n < 0 ? nb_chars + 1 : nb_chars);
+}
+
+static void	ft_putnbr_rec(char *str, unsigned int n)
+{
+	int		i;
 
 	i = 0;
-	if (n < 0)
+	if (n < 10)
 	{
-		n *= -1;
-		i++;
+		while (str[i])
+			i++;
+		str[i] = n + '0';
 	}
-	while (n)
+	else
 	{
-		n /= 10;
-		i++;
+		ft_putnbr_rec(str, n / 10);
+		ft_putnbr_rec(str, n % 10);
 	}
-	return (i);
 }
 
 char		*ft_itoa(int n)
 {
 	int				count;
-	char			*numb;
+	char			*str;
 	unsigned int	nb;
 
 	count = countn(n);
-	numb = malloc(count + 1 * sizeof(char));
-	numb[count] = '\0';
-	count--;
-	if (n == 0)
-		return ("0");
+	str = (char *)ft_calloc(count + 1, sizeof(char));
+	if (!str)
+		return (NULL);
 	if (n < 0)
 	{
+		*str = '-';
 		nb = -n;
-		numb[0] = '-';
+		ft_putnbr_rec(str + 1, nb);
 	}
 	else
-		nb = n;
-	while (nb)
 	{
-		numb[count] = nb % 10 + '0';
-		nb /= 10;
-		count--;
+		nb = n;
+		ft_putnbr_rec(str, nb);
 	}
-	return (numb);
+	return (str);
 }

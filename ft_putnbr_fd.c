@@ -6,7 +6,7 @@
 /*   By: vdescham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:54:26 by vdescham          #+#    #+#             */
-/*   Updated: 2019/10/10 16:05:44 by vdescham         ###   ########.fr       */
+/*   Updated: 2019/10/22 16:37:58 by vdescham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,24 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	long nb;
+	char			c;
+	unsigned int	nb;
 
-	nb = n;
-	if (nb < 0)
+	if (n < 0)
 	{
-		ft_putchar_fd('-', fd);
-		nb *= -1;
-	}
-	if (nb >= 10)
-	{
-		ft_putnbr_fd(nb / 10, fd);
-		ft_putchar_fd(nb % 10 + '0', fd);
+		write(fd, "-", 1);
+		nb = -n;
 	}
 	else
-		ft_putchar_fd(nb + '0', fd);
+		nb = n;
+	if (nb < 10)
+	{
+		c = nb + '0';
+		write(fd, &c, 1);
+	}
+	else
+	{
+		ft_putnbr_fd(nb / 10, fd);
+		ft_putnbr_fd(nb % 10, fd);
+	}
 }

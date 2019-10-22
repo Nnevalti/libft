@@ -6,19 +6,22 @@
 /*   By: vdescham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 14:11:51 by vdescham          #+#    #+#             */
-/*   Updated: 2019/10/09 14:19:33 by vdescham         ###   ########.fr       */
+/*   Updated: 2019/10/22 15:06:09 by vdescham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 char	*ft_strcpy(char *dst, const char *src)
 {
-	char	*d;
+	size_t	i;
 
-	d = dst;
-	while (*src)
+	i = 0;
+	while (src[i])
 	{
-		*d++ = *src++;
+		dst[i] = src[i];
+		i++;
 	}
-	*d++ = '\0';
+	dst[i] = '\0';
 	return (dst);
 }

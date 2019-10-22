@@ -6,7 +6,7 @@
 /*   By: vdescham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 12:30:02 by vdescham          #+#    #+#             */
-/*   Updated: 2019/10/08 12:30:03 by vdescham         ###   ########.fr       */
+/*   Updated: 2019/10/22 10:26:32 by vdescham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*ft_memset(void *b, int c, size_t len)
 	unsigned char	*ptr;
 
 	ptr = b;
-	while (len--)
+	while (len-- > 0)
 		*ptr++ = c;
 	return (b);
 }

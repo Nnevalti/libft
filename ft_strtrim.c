@@ -6,7 +6,7 @@
 /*   By: vdescham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:01:49 by vdescham          #+#    #+#             */
-/*   Updated: 2019/10/21 14:26:07 by vdescham         ###   ########.fr       */
+/*   Updated: 2019/10/22 15:31:24 by vdescham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int		end_index(char const *s1, char const *set)
 	size_t	s1_len;
 
 	end = 0;
-	s1_len = ft_strlen(s1);
+	s1_len = ft_strlen((char *)s1);
 	while (is_charset(s1[s1_len - end - 1], set))
 		end++;
 	return (s1_len - end);
@@ -55,8 +55,6 @@ char			*ft_strtrim(char const *s1, char const *set)
 	if (start >= (int)ft_strlen(s1))
 		return ("\0");
 	end = end_index(s1, set);
-	if (end < start)
-		return ("\0");
 	if (!(mem = (char *)malloc((end - start + 1) * sizeof(char))))
 		return (0);
 	mem = ft_strncpy(mem, s1 + start, end - start);

@@ -49,13 +49,11 @@ BONUS	=	ft_lstnew.c \
 			ft_lstiter.c \
 			ft_lstmap.c \
 
-OBJS	= *.o
+OBJS	= $(SRCS:.c=.o)
 
 CC		= gcc
 
 FLAGS	= -Wall -Wextra -Werror
-
-INCLS 	= includes
 
 all:		$(NAME)
 
@@ -64,11 +62,11 @@ $(NAME):
 			ar rc $(NAME) $(OBJS)
 
 bonus:
-			$(CC) $(FLAGS) -c $(BONUS) $(SRCS)
-			ar rc $(NAME) $(OBJS)
+			$(CC) $(FLAGS) -c $(SRCS) $(BONUS)
+			ar rc $(NAME) $(OBJS) $(BONUS:.c=.o)
 
-clean:		
-			rm -rf $(OBJS)
+clean:
+			rm -rf $(OBJS) $(BONUS:.c=.o)
 
 fclean:		clean
 			rm -f $(NAME)

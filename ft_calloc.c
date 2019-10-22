@@ -6,7 +6,7 @@
 /*   By: vdescham <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:29:19 by vdescham          #+#    #+#             */
-/*   Updated: 2019/10/10 13:31:17 by vdescham         ###   ########.fr       */
+/*   Updated: 2019/10/22 11:22:03 by vdescham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void	*mem;
+	char	*mem;
 
-	mem = malloc(count * sizeof(size));
-	ft_bzero(mem, count);
+	if (!(mem = (char *)malloc(count * size)))
+		return (NULL);
+	ft_bzero(mem, count * size);
 	return (mem);
 }
